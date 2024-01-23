@@ -49,9 +49,6 @@ class Task {
     }
 }
 
-
-//user selects their tasks for their created projects to add, edit or delete
-
 //organize all tasks based on when they are due, if they are important, and completion status
 
 
