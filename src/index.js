@@ -1,16 +1,58 @@
 //App Logic
 
+const projects = []
 //create new project class/object with project name and tasks array
+class Project {
+    constructor(name) {
+        this.name = name
+        this.tasks = []
+    }
+    
+    addToProjects() { //add new project to an array that will be later displayed to the DOM
+        projects.push(this)
+    }
 
-//add new project to an array that will be later displayed to the DOM
+    createTask(title, desc, priority, dueDate) { //create a new task and add it to this project's task list 
+        const task = new Task(title, desc, priority, dueDate)
+        this.tasks.push(task)
+    }
+}
 
-//create new task class/object with title, description, priority, and due date
-//collected from the user and add to the task array
+//create new task class/object with title, description, priority, and due date collected from the user and add to the task array
+class Task {
+    constructor(title, desc, priority, dueDate) {
+        this.title = title
+        this.desc = desc
+        this.priority= priority
+        this.dueDate = dueDate
+        this.isComplete = false
+    }
+
+    set setTitle(title) {
+        this.title = title
+    }   
+
+    set setDescription(desc) {
+        this.desc = desc
+    }   
+
+    set setPriority(priority) {
+        this.priority = priority
+    }   
+
+    set setDate(date) {
+        this.dueDate = date
+    }  
+    
+    set isComplete(complete) {
+        this.isComplete = complete
+    }
+}
+
 
 //user selects their tasks for their created projects to add, edit or delete
 
-//organize all tasks based on when they are due, if they are important, and if 
-//they are completed
+//organize all tasks based on when they are due, if they are important, and completion status
 
 
 
