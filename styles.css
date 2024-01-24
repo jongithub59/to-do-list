@@ -10,6 +10,12 @@
     font-family: MainFont;
 }
 
+:root {
+    --green: rgb(91, 224, 91);
+    --orange: rgb(247, 121, 18);
+    --red: rgb(196, 19, 19);
+}
+
 body {
     height: 100vh;
     background-color: rgb(33, 211, 255);
@@ -45,6 +51,7 @@ body {
     height: 100%;
     width: 300px;
     background-color: rgb(255, 66, 9);
+    box-shadow: inset -3px 0px 2px rgb(59, 59, 59);
 }
 
 .tasks {
@@ -76,11 +83,11 @@ body {
     background-color: brown;
 }
 
-.to-do {
+.to-do-container {
     background-color: rgb(65, 65, 124);
     height: 100%;
     width: 100%;
-    padding: 70px 150px;
+    padding: 70px 250px;
 }
 
 .to-do-title {
@@ -90,14 +97,98 @@ body {
     margin: 10px;
 }
 
-.to-do h2 {
+.to-do-container h2 {
+    width: 90%;
     margin: 10px;
     font-weight: normal;
+    /* background-color: antiquewhite; */
+}
+
+.add-task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-task img {
+    height: 40px;
+    /* filter: invert(100%); */
 }
 
 .to-do-content {
+    display: flex;
+    flex-direction: column;
     height: 90%;
     width: 100%;
-    background-color: rgb(74, 74, 163);
     padding: 20px;
+    /* background-color: aquamarine; */
+    align-items: center;
+}
+
+.to-do {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+    width: 100%;
+    height: 70px;
+    align-items: center;
+    background-color: #4a4aa3;
+    border-radius: 2px;
+    margin: 5px;
+}
+
+.to-do:hover {
+    transform: scale(1.005);
+    transform-origin: 50% 50%;
+    box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.2);
+    transition: all .2s ease-out;
+  }
+
+.to-do img {
+    height: 40px;
+    background-color: white;
+    /* filter: invert(28%) sepia(13%) saturate(5735%) hue-rotate(215deg) brightness(93%) contrast(86%); */
+    border: 5px solid black;
+}
+
+.checked {
+    background-color: var(--green)
+}
+
+.to-do-name {
+    font-size: 20px;
+    margin: 10px;
+    width: 70%;
+}
+
+.priority {
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.low-priority {
+    border: 5px solid var(--green);
+    color: var(--green);
+}
+
+.medium-priority {
+    border: 5px solid var(--orange);
+    color: var(--orange);
+}
+
+.high-priority {
+    border: 5px solid var(--red);
+    color: var(--red);
+}
+
+.date {
+    font-size: 20px;
+    width: 80px;
+}
+
+.edit-button img, .delete-button img {
+    height: 30px;
+    background-color: unset;
+    border: none;
 }
