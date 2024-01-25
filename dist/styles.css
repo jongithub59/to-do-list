@@ -63,6 +63,17 @@ body {
     align-items: left;
 }
 
+.tasks h2 {
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.tasks h2:hover {
+    background-color: aqua;
+    transition: .2s ease-out;
+}
+
 .projects {
     display: flex;
     flex-direction: column;
@@ -81,7 +92,15 @@ body {
     width: 100%;
     border-radius: 10px;
     background-color: brown;
+    cursor: pointer;
 }
+
+.add-project:hover {
+    transform: scale(1.003);
+    transform-origin: 50% 50%;
+    box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.2);
+    transition: all .2s ease-out;
+  }
 
 .to-do-container {
     background-color: rgb(65, 65, 124);
@@ -112,6 +131,7 @@ body {
 
 .add-task img {
     height: 40px;
+    cursor: pointer;
     /* filter: invert(100%); */
 }
 
@@ -149,6 +169,7 @@ body {
     background-color: white;
     /* filter: invert(28%) sepia(13%) saturate(5735%) hue-rotate(215deg) brightness(93%) contrast(86%); */
     border: 5px solid black;
+    cursor: pointer;
 }
 
 .checked {
@@ -192,3 +213,98 @@ body {
     background-color: unset;
     border: none;
 }
+
+dialog {
+    margin: auto; 
+    border: none;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+    height: 600px;
+    width: 400px;
+    animation: fadeIn .7s;
+}
+
+form {
+    /* margin: 10px; */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+form h3 {
+    font-size: 25px;
+    margin: 20px;
+}
+
+form p {
+    font-size: 20px;
+    margin: 10px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.priority-radio {
+    display: flex;
+    width: 100px;
+    height: 40px;
+    flex-direction: row;
+    align-self: center;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 10px;
+}
+
+input {
+    margin: 0;
+    padding: 2px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    height: 40px;
+    font-size: 20px;
+}
+
+#task-date {
+    font-weight: normal;
+    padding: 5px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+form button {
+    margin: 5px auto;
+    height: 45px;
+    width: 130px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+form button:hover {
+    filter: brightness(90%);
+    transition: .15s;
+ }
+
+
+@keyframes fadeIn { 
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }

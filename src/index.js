@@ -49,6 +49,15 @@ class Task {
     }
 }
 
+const dialog = document.getElementById('task-dialog')
+const addTask = document.querySelector('.add-project')
+
+addTask.addEventListener('click', (event) => {
+    event.preventDefault()
+    dialog.showModal()
+})
+
+
 //organize all tasks based on when they are due, if they are important, and completion status
 
 
