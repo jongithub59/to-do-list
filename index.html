@@ -42,6 +42,46 @@
 
         </div>
     </div>
+    <dialog id="task-dialog">
+        <form>
+            <h3>New Task</h3>
+            <label for="task-title">
+                <input type="text" name="task-title" id="task-title" placeholder="Title" required>
+            </label>
+
+            <label for="task-desc">
+                <input type="text" name="task-desc" id="task-desc" placeholder="Description" required>
+            </label>
+
+            <div>
+                <p>Priority:</p>
+                <div class="priority-radio">
+                <input type="radio" id="low-priority" name="task-priority" value="low">
+                <label for="low-priority">Low</label>
+                </div>
+
+                <div class="priority-radio">
+                <input type="radio" id="medium-priority" name="task-priority" value="medium">
+                <label for="medium-priority">Medium</label> 
+                </div>
+
+                <div class="priority-radio">
+                <input type="radio" id="high-priority" name="task-priority" value="high">
+                <label for="high-priority">High</label>
+                </div>
+            </div>
+
+                <label for="task-date"> 
+                    <p>Due Date:</p>
+                    <input type="date" name="task-date" id="task-date" min="2024-01-1" max="2024-12-31" prequired>
+                </label>
+                <div class="buttons">
+                <button id="confirm">Add Task</button>
+                <button id="cancel">Close</button>
+                </div>
+
+        </form>
+    </dialog>
     <script src="main.js"></script>
 </body>
 </html>
