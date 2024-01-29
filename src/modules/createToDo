@@ -10,4 +10,9 @@ function createToDo(title, desc, priority, dueDate) {
     return task
 }
 
+function editToDo(task) {
+    
+}
+
+
 export { createProject, createToDo }

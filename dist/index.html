@@ -19,6 +19,8 @@
             </div>
             <div class="projects">
                 <h1>Projects</h1>
+                <div class="project-list">
+                </div>
                 <div class="add-project">+ Add Project</div>
             </div>
         </div>
@@ -75,11 +77,23 @@
                     <p>Due Date:</p>
                     <input type="date" name="task-date" id="task-date" min="2024-01-1" max="2024-12-31" prequired>
                 </label>
-                <div class="buttons">
-                <button id="confirm">Add Task</button>
-                <button id="cancel">Close</button>
-                </div>
+            <div class="buttons">
+                <button id="task-confirm">Add Task</button>
+                <button id="task-cancel">Close</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog id="project-dialog">
+        <form>
+            <h3>New Project</h3>
+            <label for="project-name">
+                <input type="text" name="project-name" id="project-name" placeholder="Project Name" required>
+            </label>
 
+            <div class="buttons">
+                <button id="project-submit">Add Task</button>
+                <button id="project-cancel">Close</button>
+            </div>
         </form>
     </dialog>
     <script src="main.js"></script>
