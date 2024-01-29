@@ -19,6 +19,7 @@
 body {
     height: 100vh;
     background-color: rgb(33, 211, 255);
+    letter-spacing: .5px;
 }
 
 .content {
@@ -63,13 +64,13 @@ body {
     align-items: left;
 }
 
-.tasks h2 {
+.sidebar h2 {
     cursor: pointer;
     border-radius: 5px;
     padding: 5px;
 }
 
-.tasks h2:hover {
+.sidebar h2:hover {
     background-color: aqua;
     transition: .2s ease-out;
 }
@@ -222,6 +223,9 @@ body {
 }
 
 dialog {
+    /* cannot use these rules as dialog.close will not work properly */
+    /* display: flex; */
+    /* justify-content: center; */
     margin: auto; 
     border: none;
     border-radius: 10px;
@@ -230,6 +234,22 @@ dialog {
     height: 600px;
     width: 400px;
     animation: fadeIn .7s;
+}
+
+#project-dialog {
+    height: 300px;
+    width: 600px;
+    padding: 40px;
+}
+
+#project-dialog h3{
+    margin: 10px;
+}
+
+#project-dialog .buttons{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
 }
 
 form {
@@ -288,6 +308,7 @@ input {
 .buttons {
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 form button {
@@ -295,6 +316,7 @@ form button {
     height: 45px;
     width: 130px;
     font-size: 20px;
+    margin: 5px;
     border-radius: 5px;
     cursor: pointer;
     border: none;
@@ -303,6 +325,10 @@ form button {
 form button:hover {
     filter: brightness(90%);
     transition: .15s;
+ }
+
+ .hidden {
+    display: none;
  }
 
 
