@@ -58,27 +58,27 @@
             <div>
                 <p>Priority:</p>
                 <div class="priority-radio">
-                <input type="radio" id="low-priority" name="task-priority" value="low">
+                <input type="radio" id="low-priority" name="task-priority" value="low" required>
                 <label for="low-priority">Low</label>
                 </div>
 
                 <div class="priority-radio">
-                <input type="radio" id="medium-priority" name="task-priority" value="medium">
+                <input type="radio" id="medium-priority" name="task-priority" value="medium" required>
                 <label for="medium-priority">Medium</label> 
                 </div>
 
                 <div class="priority-radio">
-                <input type="radio" id="high-priority" name="task-priority" value="high">
+                <input type="radio" id="high-priority" name="task-priority" value="high" required>
                 <label for="high-priority">High</label>
                 </div>
             </div>
 
                 <label for="task-date"> 
                     <p>Due Date:</p>
-                    <input type="date" name="task-date" id="task-date" min="2024-01-1" max="2024-12-31" prequired>
+                    <input type="date" name="task-date" id="task-date" min="2024-01-1" max="2024-12-31" required>
                 </label>
             <div class="buttons">
-                <button id="task-confirm">Add Task</button>
+                <button id="task-submit">Add Task</button>
                 <button id="task-cancel">Close</button>
             </div>
         </form>
