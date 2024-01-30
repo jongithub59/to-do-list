@@ -31,29 +31,21 @@
             </div>
             <hr>
             <div class="to-do-content">
-                <div class="to-do">
-                    <img src="./pics/check icon.png" alt="checkbox">
-                    <p class="to-do-name">Task Name</p>
-                    <p class="priority low-priority">Priority</p>
-                    <p class="date">Jan 29th</p>
-                    <div class="edit-button"><img src="./pics/square-edit-outline.svg" alt="edit icon"></div>
-                    <div class="delete-button"><img src="./pics/trash-can-outline.svg" alt="trash icon"></div>
-                </div>
             </div>
         </div>
 
         </div>
     </div>
     <dialog id="task-dialog">
-        <form>
+        <form id="create-task">
             <h3>New Task</h3>
             <label for="task-title">
                 <input type="text" name="task-title" id="task-title" placeholder="Title" required>
             </label>
 
-            <label for="task-desc">
+            <!-- <label for="task-desc">
                 <input type="text" name="task-desc" id="task-desc" placeholder="Description" required>
-            </label>
+            </label> -->
 
             <div>
                 <p>Priority:</p>
@@ -78,21 +70,21 @@
                     <input type="date" name="task-date" id="task-date" min="2024-01-1" max="2024-12-31" required>
                 </label>
             <div class="buttons">
-                <button id="task-submit">Add Task</button>
-                <button id="task-cancel">Close</button>
+                <button type="submit" id="task-submit">Add Task</button>
+                <button type="button" id="task-cancel">Close</button>
             </div>
         </form>
     </dialog>
     <dialog id="project-dialog">
-        <form>
+        <form id="create-project">
             <h3>New Project</h3>
             <label for="project-name">
                 <input type="text" name="project-name" id="project-name" placeholder="Project Name" required>
             </label>
 
             <div class="buttons">
-                <button id="project-submit">Add Task</button>
-                <button id="project-cancel">Close</button>
+                <button type="submit" id="project-submit">Add Task</button>
+                <button type="button" id="project-cancel">Close</button>
             </div>
         </form>
     </dialog>

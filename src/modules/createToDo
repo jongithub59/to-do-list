@@ -5,8 +5,8 @@ function createProject(name) {
     return project
 }
 
-function createToDo(title, desc, priority, dueDate) {
-    const task = new Task(title, desc, priority, dueDate)
+function createToDo(title, desc, priority, date) {
+    const task = new Task(title, desc, priority, date)
     return task
 }
 

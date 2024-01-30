@@ -16,11 +16,11 @@ class Project {
 
 //create new task class/object with title, description, priority, and due date collected from the user and add to the task array
 class Task {
-    constructor(title, desc, priority, dueDate) {
+    constructor(title, desc, priority, date) {
         this.title = title
         this.desc = desc
         this.priority= priority
-        this.dueDate = dueDate
+        this.date = date
         this.isComplete = 0
     }
 
@@ -37,7 +37,7 @@ class Task {
     }   
 
     set setDate(date) {
-        this.dueDate = date
+        this.date = date
     }  
     
     // set isComplete(complete) {
