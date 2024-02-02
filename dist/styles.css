@@ -11,7 +11,7 @@
 }
 
 :root {
-    --green: rgb(91, 224, 91);
+    --green: #5be05b;
     --orange: rgb(247, 121, 18);
     --red: rgb(196, 19, 19);
 }
@@ -173,15 +173,19 @@ body {
   }
 
 .to-do img {
+    cursor: pointer;
+}
+
+.checkmark {
     height: 40px;
-    background-color: white;
-    /* filter: invert(28%) sepia(13%) saturate(5735%) hue-rotate(215deg) brightness(93%) contrast(86%); */
+    width: 40px;
     border: 5px solid black;
     cursor: pointer;
 }
 
 .checked {
-    background-color: var(--green)
+    background: url(./pics/check\ icon.png), var(--green);
+    background-size: contain;
 }
 
 .to-do-name {

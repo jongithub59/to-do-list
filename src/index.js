@@ -12,6 +12,7 @@ const screenController = function() {
     const projectList = document.querySelector('.project-list')
     const main = document.querySelector('.to-do-content')
     const projectForm = document.getElementById('create-project')
+    const editTaskForm = document.getElementById('edit-task')
     const taskForm = document.getElementById('create-task')
 
     
@@ -22,10 +23,17 @@ const screenController = function() {
         })
     }
     
-    const cancelDialog = function(button, input, dialog) {
+    const cancelDialog = function(button, dialog, form) {
         button.addEventListener('click', (event) => {
             event.preventDefault()
-            projectForm.reset()
+            form.reset()
+            dialog.close()
+        })
+    }
+
+    const cancelEditDialog = function(button, dialog) {
+        button.addEventListener('click', (event) => {
+            event.preventDefault()
             dialog.close()
         })
     }
@@ -47,10 +55,16 @@ const screenController = function() {
                 event.preventDefault()
                 submitProject()
                 dialog.close()
+                projectForm.reset()
             })
             
-            cancelDialog(cancel, nameInput, dialog)
+            cancelDialog(cancel, dialog, projectForm)
             
+        }
+
+        const createDefaultProjects = function() {
+            const project1 = displayProject(createProject('Work'))
+            return project1
         }
         
         const submitProject = function() {
@@ -66,34 +80,34 @@ const screenController = function() {
             projectHeader.textContent = project.name
             
             projectList.appendChild(projectHeader)
-            projectForm.reset()
+            return project
         }
         
-        
-        
         createButtons()
+        createDefaultProjects()
     }
     
     //add task button that calls new task class to create a task
     const addNewTask = function() {
         const dialog = document.getElementById('task-dialog')
+        const editDialog = document.getElementById('edit-dialog')
         const title = document.getElementById('task-title')
         const desc = document.getElementById('task-desc')
         const date = document.getElementById('task-date')
+        const editSubmit = document.getElementById('edit-submit')
         
         
         const createButtons = function() {
             const addTask = document.getElementById('add-task')
             const cancel = document.getElementById('task-cancel')
+            const editCancel = document.getElementById('edit-cancel')
             const submit = document.getElementById('task-submit')
             
             openDialog(addTask, dialog)
             
-            cancel.addEventListener('click', (event) => {
-                event.preventDefault()
-                taskForm.reset()
-                dialog.close()
-            })
+            cancelDialog(cancel, dialog, taskForm)
+            
+            cancelEditDialog(editCancel, editDialog)
             
             submit.addEventListener('click', (event) => {
                 event.preventDefault()
@@ -102,14 +116,14 @@ const screenController = function() {
                 dialog.close()
             })
         }
-
-        createButtons()
-    
+        
+        
+        
         const createDefaultTasks = function() {
             const task1 = displayTask(createToDo('Create Module 1', 'Module 1 will contain application logic', 'medium', '2024-01-01'))
             tasks.push(task1)
         }
-
+        
         const submitTask = function() {
             const priority = document.querySelector("input[name='task-priority']:checked").value
             
@@ -120,8 +134,31 @@ const screenController = function() {
         }
         
         const displayTask = function(task) {
+            
+            const editTask = function() {
+                editDialog.showModal()
+                console.log(currentTask)
+                const editTitle = document.getElementById('edit-task-title')
+                const editDesc = document.getElementById('edit-task-desc')
+                const priority = document.getElementsByName('edit-task-priority')
+                const editDate = document.getElementById('edit-task-date')
+                editTitle.value = task.title
+                priority.forEach((button) => {
+                    if (button.value == task.priority) button.setAttribute('checked', 'checked')
+                })
+            editDate.value = task.date
+
+            editSubmit.addEventListener('click', (event) => {
+                event.preventDefault()
+                console.log(currentTask)
+            })
+        }
+        
+
+        const currentTask = task
+            // console.log(currentTask)
             const toDo = document.createElement('div')
-            const check = document.createElement('img')
+            const check = document.createElement('div')
             const name = document.createElement('p')
             const priority = document.createElement('p')
             const dueDate = document.createElement('p')
@@ -131,14 +168,15 @@ const screenController = function() {
             const icon2 = document.createElement('img')
             
             toDo.classList.add('to-do')
-            check.src = './pics/check icon.png'
-            check.alt ='checkbox'
+            check.classList.add('checkmark')
+            check.addEventListener('click', () => {
+                check.classList.toggle('checked')
+            })
             name.classList.add('to-do-name')
             name.textContent = task.title
             
             priority.classList.add('priority')
             priority.textContent = 'Priority'
-            console.log(task.priority)
             if (task.priority == 'low') priority.classList.add('low-priority')
             if (task.priority == 'medium') priority.classList.add('medium-priority')
             if (task.priority == 'high') priority.classList.add('high-priority')
@@ -148,6 +186,7 @@ const screenController = function() {
             edit.classList.add('edit-button')
             icon.src = './pics/square-edit-outline.svg'
             edit.appendChild(icon)
+            edit.addEventListener('click', editTask)
             remove.classList.add('delete-button')
             remove.setAttribute('onclick', "return this.parentNode.remove();")
             icon2.src = './pics/trash-can-outline.svg'
@@ -161,15 +200,17 @@ const screenController = function() {
             toDo.appendChild(remove)
             main.appendChild(toDo)
         }
+
+        createButtons()
         createDefaultTasks()
         //need module that will add a task specifically to the project currently in
+        
+        
+    }
     
+    //all tasks section that displays all task array elements from all projects
     
-}
-
-//all tasks section that displays all task array elements from all projects
-
-//other tabs that display tasks from all projects based on some criteria
+    //other tabs that display tasks from all projects based on some criteria
     
     addNewProject()
     addNewTask()
