@@ -75,6 +75,45 @@
             </div>
         </form>
     </dialog>
+    <dialog id="edit-dialog">
+        <form id="edit-task">
+            <h3>Edit Task</h3>
+            <label for="task-title">
+                <input type="text" name="task-title" id="edit-task-title" placeholder="Title" required>
+            </label>
+
+            <!-- <label for="task-desc">
+                <input type="text" name="task-desc" id="task-desc" placeholder="Description" required>
+            </label> -->
+
+            <div>
+                <p>Priority:</p>
+                <div class="priority-radio">
+                <input type="radio" id="low-priority" name="edit-task-priority" value="low" required>
+                <label for="low-priority">Low</label>
+                </div>
+
+                <div class="priority-radio">
+                <input type="radio" id="medium-priority" name="edit-task-priority" value="medium" required>
+                <label for="medium-priority">Medium</label> 
+                </div>
+
+                <div class="priority-radio">
+                <input type="radio" id="high-priority" name="edit-task-priority" value="high" required>
+                <label for="high-priority">High</label>
+                </div>
+            </div>
+
+                <label for="task-date"> 
+                    <p>Due Date:</p>
+                    <input type="date" name="task-date" id="edit-task-date" min="2024-01-1" max="2024-12-31" required>
+                </label>
+            <div class="buttons">
+                <button type="submit" id="edit-submit">Add Task</button>
+                <button type="button" id="edit-cancel">Close</button>
+            </div>
+        </form>
+    </dialog>
     <dialog id="project-dialog">
         <form id="create-project">
             <h3>New Project</h3>
