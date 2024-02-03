@@ -1,15 +1,15 @@
-import { Project, Task } from "./classes"
+// import { Project, Task } from "./classes"
 
-function createProject(name) {
-    const project = new Project(name)
-    return project
-}
+// function createProject(name) {
+//     const project = new Project(name)
+//     return project
+// }
 
-function createToDo(title, desc, priority, date) {
-    const task = new Task(title, desc, priority, date)
-    return task
-}
+// function createToDo(title, desc, priority, date) {
+//     const task = new Task(title, desc, priority, date)
+//     return task
+// }
 
 
 
-export { createProject, createToDo }
+// export { createProject, createToDo }

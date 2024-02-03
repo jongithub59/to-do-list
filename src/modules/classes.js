@@ -7,26 +7,43 @@ class Project {
     set setName(name) {
         this.name = name
     }  
-    
+
+    get getName() {
+        return this.name
+    }
+
+    get getTasks() {
+        return this.tasks
+    }
+
     createTask(title, desc, priority, dueDate) { //create a new task and add it to this project's task list 
         const task = new Task(title, desc, priority, dueDate)
         this.tasks.push(task)
+        return task
+    }
+
+    deleteTask(taskTitle) { //removes inputted task from the tasks array by replacing the array with one that excludes the task title given
+        this.tasks = this.tasks.filter(task => task.title !== taskTitle)
     }
 }
 
 //create new task class/object with title, description, priority, and due date collected from the user and add to the task array
 class Task {
-    constructor(title, desc, priority, date) {
+    constructor(title, desc, priority, date) { //initialize values from dialog input
         this.title = title
         this.desc = desc
         this.priority= priority
         this.date = date
-        this.isComplete = 0
+        this.completion = false
     }
 
-    set setTitle(title) {
+    set setTitle(title) { // set task title to inputted title name
         this.title = title
     }   
+
+    get getTitle() { //return the task title
+        return this.title
+    }
 
     set setDescription(desc) {
         this.desc = desc
@@ -34,15 +51,23 @@ class Task {
 
     set setPriority(priority) {
         this.priority = priority
-    }   
+    } 
+    
+    get getPriority() {
+        return this.priority
+    }
 
     set setDate(date) {
         this.date = date
     }  
-    
-    // set isComplete(complete) {
-    //     this.isComplete = complete
-    // }
+
+    get getDate() {
+        return this.date
+    }
+
+    set setCompletion(completion) {
+        this.completion = completion
+    }
 }
 
 export { Project, Task }
