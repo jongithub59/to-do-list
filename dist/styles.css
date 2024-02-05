@@ -111,7 +111,7 @@ body {
     padding: 70px 250px;
 }
 
-.to-do-title {
+#to-do-title {
     display: flex;
     justify-content: center;
     font-weight: normal;

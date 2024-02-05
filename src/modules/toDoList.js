@@ -19,10 +19,10 @@ get getProjects() { //return the array with all projects
 }
 
 findProject(name) { //return a project in the project array using an inputted project name
-    return this.projects.find((project) => project.getName === name)
+    return this.projects.find((project) => project.getName == name)
 }
 
-deleteProject(name) { //removes the inputted project by using splice to remove teh 1 element at the given project's index
+deleteProject(name) { //removes the inputted project by using splice to remove thh 1 element at the given project's index
     this.projects.splice(this.projects.indexOf(this.findProject(name)), 1)
 }
 
