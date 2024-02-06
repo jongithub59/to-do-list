@@ -11,7 +11,6 @@ export default class ToDoList {
 createProject(name) { //create new project class and add it to the project array
     const project = new Project(name)
     this.projects.push(project)
-    return project
 }
 
 get getProjects() { //return the array with all projects
