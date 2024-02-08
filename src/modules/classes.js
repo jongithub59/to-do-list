@@ -16,10 +16,14 @@ class Project {
         return this.tasks
     }
 
-    createTask(title, desc, priority, dueDate) { //create a new task and add it to this project's task list 
-        const task = new Task(title, desc, priority, dueDate)
+    createTask(title, priority, dueDate) { //create a new task and add it to this project's task list 
+        const task = new Task(title, priority, dueDate)
         this.tasks.push(task)
         return task
+    }
+
+    findTask(title) {
+        return this.tasks.find((task) => task.getTitle == title)
     }
 
     deleteTask(taskTitle) { //removes inputted task from the tasks array by replacing the array with one that excludes the task title given
@@ -29,10 +33,10 @@ class Project {
 
 //create new task class/object with title, description, priority, and due date collected from the user and add to the task array
 class Task {
-    constructor(title, desc, priority, date) { //initialize values from dialog input
+    constructor(title, priority, date) { //initialize values from dialog input
         this.title = title
-        this.desc = desc
-        this.priority= priority
+        // this.desc = desc
+        this.priority = priority
         this.date = date
         this.completion = false
     }
