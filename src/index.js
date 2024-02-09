@@ -1,3 +1,3 @@
-import createToDoList from "./modules/logic";
+import createUI from "./modules/logic";
 
-const toDoList = createToDoList()
+const UI = createUI()

@@ -12,6 +12,10 @@ class Project {
         return this.name
     }
 
+    set setTasks(tasks) {
+        this.tasks = tasks
+    }
+
     get getTasks() {
         return this.tasks
     }
@@ -21,6 +25,11 @@ class Project {
         this.tasks.push(task)
         return task
     }
+
+    addTaskToProject(task) {
+        this.tasks.push(task)
+    }
+    
 
     findTask(title) {
         return this.tasks.find((task) => task.getTitle == title)

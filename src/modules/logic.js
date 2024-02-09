@@ -5,6 +5,7 @@ export default function createToDoList() {
     const toDoList = new ToDoList
     
     const screenController = (function() {
+        //set global variables
         const main = document.querySelector('.to-do-content')
         const projectList = document.querySelector('.project-list')
         const projectTitle = document.getElementById('to-do-title')
@@ -30,20 +31,14 @@ export default function createToDoList() {
             const date = document.getElementById('task-date')
             
             
-            const getTaskDialog = function() {
+            const getTaskDialog = function() { //returns the dialog for adding tasks for use elsewhere
                 return dialog
             }
             
             const createButtons = (function() {
                 const submit = document.getElementById('task-submit')
-                const addTask = document.getElementById('add-task')
                 const cancel = document.getElementById('task-cancel')
                 
-                // addTask.addEventListener('click', (e) => {
-                    //     e.preventDefault()
-                    //     dialog.showModal()
-                    // })
-                    
                     cancel.addEventListener('click', (e) => {
                         e.preventDefault()
                         taskForm.reset()
@@ -58,11 +53,11 @@ export default function createToDoList() {
                 })
             })()
 
-            const validateTask = function() {
-                if (title.value == '' ) alert('Title cannot be empty')
+            const validateTask = function() { //ensures input fields are filled and no repeat names used
+                if (title.value == '' ) return alert('Title cannot be empty')
                 if (currentProject.findTask(title.value)) return alert('Task Name already in use')
-                if (!document.querySelector("input[name='task-priority']:checked")) alert('Priority cannot be unselected')
-                if (date.value == '') alert('Date cannot be empty')
+                if (!document.querySelector("input[name='task-priority']:checked"))  return alert('Priority cannot be unselected')
+                if (date.value == '') return alert('Date cannot be empty')
                 const priority = document.querySelector("input[name='task-priority']:checked").value
             
                 const task = currentProject.createTask(title.value, priority, date.value)
@@ -71,7 +66,7 @@ export default function createToDoList() {
                 addTask(currentProject, task)
             }
             
-            const cancelEdit = (function() {
+            const cancelEdit = (function() {//close dialog and reset input fields
                 editCancel.addEventListener('click', (e) => {
                     e.preventDefault()
                     editForm.reset()
@@ -86,15 +81,15 @@ export default function createToDoList() {
                 editForm.reset()
             })
 
-            
             const openEditDialog = (button, task) => {
                 button.addEventListener('click', (e) => {
                     e.preventDefault()
+                    console.log(task)
                     showEditDetails(task)
                 })
             } 
             
-            const showEditDetails = function(task) {
+            const showEditDetails = function(task) { //opens edit pop up window and fills placeholder content with the current task details
                 editDialog.showModal()
                 editTitle.value = task.title
                 console.log(editTitle.value)
@@ -102,15 +97,11 @@ export default function createToDoList() {
                     if (button.value == task.priority) button.setAttribute('checked', 'checked')
                 })
                 editDate.value = task.date
-                currentTask = currentProject.findTask(task.title)
-                console.log(currentTask)
+                currentTask = currentProject.findTask(task.title) //sets clicked task as the active task in the program for easy access
             }
 
-            const validateEditTask = function(editTitle, editDate, task) {
-                console.log(editTitle)
-                console.log(editDate)
-                console.log(task)
-                if (editTitle == '' ) return alert('Title cannot be empty')
+            const validateEditTask = function(editTitle, editDate, task) { //new variables for new values for the task created for clarity
+                if (editTitle == '') return alert('Title cannot be empty')
                 if (editDate == '') return alert('Date cannot be empty')
 
                 const newTitle = editTitle
@@ -120,22 +111,21 @@ export default function createToDoList() {
                 editTask(newTitle, newPriority, newDate, task)
             }
 
-            const editTask = function(newTitle, newPriority, newDate, task) {
+            const editTask = function(newTitle, newPriority, newDate, task) { //task class properties changed and ready to be sent for updating
                 task.setTitle = newTitle
                 task.setPriority = newPriority
                 task.setDate = newDate
                 updateTask()
             }
 
-            const updateTask = function() {
+            const updateTask = function() { //clears task area repopulates it with updated task info of the active project
                 toDoContent.innerHTML = ''
                 for (const i in currentProject.tasks ) {
                     addTask(currentProject, currentProject.tasks[i])
                 }
             }
 
-            const addTask = function(currentProject, task) {
-        
+            const addTask = function(currentProject, task) { //create DOM elements for to do list item and populate with task class properties
 
                 const toDo = document.createElement('div')
                 const check = document.createElement('div')
@@ -149,8 +139,11 @@ export default function createToDoList() {
                 
                 toDo.classList.add('to-do')
                 check.classList.add('checkmark')
+                if (task.completion == true) check.classList.add('checked') //prechecks the checkbox when repopulating if it was checked before
                 check.addEventListener('click', () => {
                     check.classList.toggle('checked')
+                    if (task.completion == true) return task.setCompletion = false
+                    if (task.completion == false) return task.setCompletion = true
                 })
                 name.classList.add('to-do-name')
                 name.textContent = task.title
@@ -169,7 +162,7 @@ export default function createToDoList() {
                 openEditDialog(edit, task)
                 
                 remove.classList.add('delete-button')
-                remove.addEventListener('click', () => {
+                remove.addEventListener('click', () => { //removes task DOM element from the page and from project array if clicked
                     toDo.remove()
                     currentProject.deleteTask(task.title)
                 })
@@ -222,7 +215,6 @@ export default function createToDoList() {
             })()
             
             const validateProject = function(projectName) { 
-                console.log(toDoList.getProjects)
                 if (projectName == '') return alert('Project Name cannot be empty')
                 if (toDoList.findProject(projectName)) return alert('Project Name already in use') //if findProject() runs, then a project with that name exists so end loop
                 
@@ -243,16 +235,17 @@ export default function createToDoList() {
                 })
 
                 deleteProject.addEventListener('click', () => {
+                    toDoList.findProject(projectName).tasks = []
                     toDoList.deleteProject(projectListItemHeader.textContent)
                     projectListItem.remove() //removes the element from the DOM
                     projectTitle.textContent = ''
+                    toDoContent.innerHTML = ''
                 })
                 
                 toDoList.createProject(projectName) //add the project to the projects array
                 projectListItem.appendChild(projectListItemHeader)
                 projectListItem.appendChild(deleteProject)
                 projectList.appendChild(projectListItem)
-
             }
             
             const displayProjectTasks = function(toDoContent, tasks, project) { //will iterate over project's tasks array and display them to the DOM
@@ -265,6 +258,7 @@ export default function createToDoList() {
             const displayProjectDetails = function(project) { //updates project header to clicked project title and replaces previous tasks with the new projects tasks
                 currentProject = project
                 const addTask = document.getElementById('add-task')
+                addTask.classList.remove('hidden')
                 const toDoContent = document.querySelector('.to-do-content')
                 addTask.addEventListener('click', () => {
                     makeTask.getTaskDialog().showModal()
@@ -274,91 +268,78 @@ export default function createToDoList() {
                 return currentProject
             }
             
-            const createDefaultProjects = (function() { //adds event listeners that give access to their corresponding project classes
+            const displayDefaultProjectDetails = function(project) { //same as displayProjectDetails but calls unique functions to display all tasks that meet a certain condition
+                currentProject = project
+                projectTitle.textContent = project.name
+                document.getElementById('add-task').classList.add('hidden') 
+
+                if (project.name == 'All') getAllTasks(toDoList.projects, project)
+                if (project.name == 'Priority') getPriorityTasks(toDoList.projects, project)
+                if (project.name == 'Completed') getCompletedTasks(toDoList.projects, project)
+
+                displayDefaultProjectTasks(toDoContent, project.tasks, project)
+            }
+
+            const displayDefaultProjectTasks = function(toDoContent, tasks, project) { //will iterate over project's tasks array and display them to the DOM then resets the array for next time
+                toDoContent.innerHTML = ''
+                for (const i in tasks ) {
+                    makeTask.addTask(project, tasks[i])
+                }
+                project.tasks = []
+            }
+
+             //go through each project, check that each task array within in each project contains tasks, then add every task to the "All" project tasks
+            const getAllTasks = function(projects, project) {
+                for (const i in projects) {
+                    if (projects[i].tasks != '') for ( const j in projects[i].tasks) {
+                        project.addTaskToProject(projects[i].tasks[j])
+                    }
+                }  
+            }
+
+            //go through each project, check that each task array within in each project contains tasks, then add every task that has a priority of "high" to the "Priority" project tasks
+            const getPriorityTasks = function(projects, project) {
+                for (const i in projects) {
+                    if (projects[i].tasks != '') for ( const j in projects[i].tasks) {
+                        if (projects[i].tasks[j].priority == 'high') project.addTaskToProject(projects[i].tasks[j])
+                    }
+                } 
+            }
+
+            const getCompletedTasks = function(projects, project) { //go through each project, check that each task array within in each project contains tasks, then add every task that is conpleted to the "Completed" project tasks
+                for (const i in projects) {
+                    if (projects[i].tasks != '') for ( const j in projects[i].tasks) {
+                        if (projects[i].tasks[j].completion == true) project.addTaskToProject(projects[i].tasks[j])
+                    }
+                } 
+            }
+            
+            const createDefaultProjects = (function() { //creates premade projects with tasks and adds event listeners that give access to their corresponding project classes
 
                 allProjects.addEventListener('click', (e) => {
-                    displayProjectDetails(toDoList.findProject(e.target.textContent))
+                    displayDefaultProjectDetails(toDoList.findProject(e.target.textContent))
                 })
 
                 priorityProjects.addEventListener('click', (e) => {
-                    displayProjectDetails(toDoList.findProject(e.target.textContent))
+                    displayDefaultProjectDetails(toDoList.findProject(e.target.textContent))
                 })
 
                 completedProjects.addEventListener('click', (e) => {
-                    displayProjectDetails(toDoList.findProject(e.target.textContent))
+                    displayDefaultProjectDetails(toDoList.findProject(e.target.textContent))
                 })
 
                 addProject('Work')
-                currentProject = displayProjectDetails(toDoList.findProject('All'))
-                const defaultTask = currentProject.createTask('Create Module 1', 'medium', '2024-02-14')
-                makeTask.addTask(currentProject, defaultTask)
+                currentProject = displayProjectDetails(toDoList.findProject('Work'))
+                currentProject.createTask('Create Module 1', 'medium', '2024-02-14')
+                currentProject.createTask('Talk to manager', 'medium', '2024-02-14')
+                currentProject.createTask('Meet with team', 'high', '2024-02-14')
+                displayProjectTasks(toDoContent, currentProject.tasks, currentProject)
+                addProject('Home')
+                toDoList.findProject('Home').createTask('Do laundry', 'low', '2024-02-16')
+                toDoList.findProject('Home').createTask('Do the dishes', 'medium', '2024-02-16')
+                toDoList.findProject('Home').createTask('Prepare meals for the week', 'high', '2024-02-14')
+                toDoList.findProject('Home').createTask('Training', 'high', '2024-02-16')
             })()
         })()
-
-
     })()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // console.log('test demo')
-    // console.log('variables initialized')
-    // const project4 = toDoList.createProject('Project 4')
-    // const project1 = toDoList.createProject('Project 1')
-    // console.log(toDoList)
-    // const module1 = project1.createTask('Create Module 1', 'description', 'High', 'tomorrow')
-    // const module2 = project1.createTask('Create Module 2', 'description', 'Medium', 'tomorrow')
-    // const module3 = project1.createTask('Create Module 3', 'description', 'Low', 'tomorrow')
-    // const module4 = project1.createTask('Create Module 4', 'description', 'High', 'tomorrow')
-    // module4.setCompletion = true
-    // project1.deleteTask(module4.title)
-    // module2.setCompletion = true
-    // module1.setCompletion = true
-    // console.log(module1.setTitle = 'create module 2')
-    // toDoList.deleteProject(project4.name)
-
-    // console.log(project1.tasks)
-    // console.log(toDoList.projects)
-    // console.log('priority',toDoList.findProject('Priority').tasks)
-    // console.log('completed', toDoList.findProject('Completed').tasks)
-    
-    // const addToArray = function(task) { //adds the task to one of the below arrays if it meets any of the conditions
-    //     if(task.priority == 'High') toDoList.findProject('Priority').tasks.push(task)
-    //     if(task.completion == true) toDoList.findProject('Completed').tasks.push(task)
-    // }
-    // addToArray(module1)
-    // addToArray(module2)
-    // addToArray(module3)
-    // // addToArray(module4)
-    // console.log('')
-    // console.log('added to arrays')
-    // console.log('')
-    // console.log(project1.tasks)
-    // console.log('priority', toDoList.findProject('Priority').tasks)
-    // console.log('completed', toDoList.findProject('Completed').tasks)
-    // return toDoList
 }
