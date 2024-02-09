@@ -8,18 +8,69 @@ export default function createToDoList() {
         const main = document.querySelector('.to-do-content')
         const projectList = document.querySelector('.project-list')
         const projectTitle = document.getElementById('to-do-title')
+        const toDoContent = document.querySelector('.to-do-content')
+        const editDialog = document.getElementById('edit-dialog')
+        const editForm = document.getElementById('edit-task')
+        const editSubmit = document.getElementById('edit-submit')
+        const editTitle = document.getElementById('edit-task-title')
+        const editDesc = document.getElementById('edit-task-desc')
+        const editPriority = document.getElementsByName('edit-task-priority')
+        const editDate = document.getElementById('edit-task-date')
+        const editCancel = document.getElementById('edit-cancel')
         let currentProject = ''
+        let currentTask = ''
+        
+        
+        const taskFunctions = function() {
+            const dialog = document.getElementById('task-dialog')
+            const taskForm = document.getElementById('create-task')
+            const title = document.getElementById('task-title')
+            const priority = document.getElementsByName('task-priority')
+            const desc = document.getElementById('task-desc')
+            const date = document.getElementById('task-date')
+            
+            
+            const getTaskDialog = function() {
+                return dialog
+            }
+            
+            const createButtons = (function() {
+                const submit = document.getElementById('task-submit')
+                const addTask = document.getElementById('add-task')
+                const cancel = document.getElementById('task-cancel')
+                
+                // addTask.addEventListener('click', (e) => {
+                    //     e.preventDefault()
+                    //     dialog.showModal()
+                    // })
+                    
+                    cancel.addEventListener('click', (e) => {
+                        e.preventDefault()
+                        taskForm.reset()
+                        dialog.close()
+                    })
 
-        const edit = function() {
-            const editDialog = document.getElementById('edit-dialog')
-            const editForm = document.getElementById('edit-task')
-            const editSubmit = document.getElementById('edit-submit')
-            const editTitle = document.getElementById('edit-task-title')
-            const editDesc = document.getElementById('edit-task-desc')
-            const editPriority = document.getElementsByName('edit-task-priority')
-            const editDate = document.getElementById('edit-task-date')
-            const editCancel = document.getElementById('edit-cancel')
+                    submit.addEventListener('click', (e) => {
+                        e.preventDefault()
+                        validateTask(title.value, priority, date.value)
+                        dialog.close()
+                        taskForm.reset()
+                })
+            })()
 
+            const validateTask = function() {
+                if (title.value == '' ) alert('Title cannot be empty')
+                if (currentProject.findTask(title.value)) return alert('Task Name already in use')
+                if (!document.querySelector("input[name='task-priority']:checked")) alert('Priority cannot be unselected')
+                if (date.value == '') alert('Date cannot be empty')
+                const priority = document.querySelector("input[name='task-priority']:checked").value
+            
+                const task = currentProject.createTask(title.value, priority, date.value)
+                
+
+                addTask(currentProject, task)
+            }
+            
             const cancelEdit = (function() {
                 editCancel.addEventListener('click', (e) => {
                     e.preventDefault()
@@ -28,34 +79,37 @@ export default function createToDoList() {
                 })
             })()
 
-            const submitEditButton = function(task) {
-                editSubmit.addEventListener('click', (e) => {
-                    e.preventDefault()
-                    validateEditTask(editTitle.value, editDate.value, task)
-                    editDialog.close()
-                    editForm.reset()
-                })
-            }
+            editSubmit.addEventListener('click', (e) => {
+                e.preventDefault()
+                validateEditTask(editTitle.value, editDate.value, currentTask)
+                editDialog.close()
+                editForm.reset()
+            })
+
             
             const openEditDialog = (button, task) => {
                 button.addEventListener('click', (e) => {
                     e.preventDefault()
                     showEditDetails(task)
-                    editDialog.showModal()
                 })
             } 
             
             const showEditDetails = function(task) {
+                editDialog.showModal()
                 editTitle.value = task.title
                 console.log(editTitle.value)
                 editPriority.forEach((button) => {
                     if (button.value == task.priority) button.setAttribute('checked', 'checked')
                 })
                 editDate.value = task.date
+                currentTask = currentProject.findTask(task.title)
+                console.log(currentTask)
             }
 
             const validateEditTask = function(editTitle, editDate, task) {
                 console.log(editTitle)
+                console.log(editDate)
+                console.log(task)
                 if (editTitle == '' ) return alert('Title cannot be empty')
                 if (editDate == '') return alert('Date cannot be empty')
 
@@ -70,68 +124,19 @@ export default function createToDoList() {
                 task.setTitle = newTitle
                 task.setPriority = newPriority
                 task.setDate = newDate
-                updateTask(task)
+                updateTask()
             }
 
-            const updateTask = function(task) {
-                
-            }
-        
-            return { openEditDialog, submitEditButton }
-        }
-
-        const task = function() {
-            const dialog = document.getElementById('task-dialog')
-            const taskForm = document.getElementById('create-task')
-            const title = document.getElementById('task-title')
-            const priority = document.getElementsByName('task-priority')
-            const desc = document.getElementById('task-desc')
-            const date = document.getElementById('task-date')
-
-            const editTask = edit()
-
-            const getTaskDialog = function() {
-                return dialog
-            }
-            
-            const createButtons = (function() {
-                const submit = document.getElementById('task-submit')
-                const addTask = document.getElementById('add-task')
-                const cancel = document.getElementById('task-cancel')
-                
-                // addTask.addEventListener('click', (e) => {
-                //     e.preventDefault()
-                //     dialog.showModal()
-                // })
-
-                cancel.addEventListener('click', (e) => {
-                    e.preventDefault()
-                    taskForm.reset()
-                    dialog.close()
-                })
-
-                submit.addEventListener('click', (e) => {
-                    e.preventDefault()
-                    validateTask(title.value, priority, date.value)
-                    dialog.close()
-                    taskForm.reset()
-                })
-            })()
-
-            const validateTask = function() {
-                if (title.value == '' ) alert('Title cannot be empty')
-                if (currentProject.findTask(title.value)) return alert('Task Name already in use')
-                if (!document.querySelector("input[name='task-priority']:checked")) alert('Priority cannot be unselected')
-                if (date.value == '') alert('Date cannot be empty')
-                const priority = document.querySelector("input[name='task-priority']:checked").value
-            
-                const task = currentProject.createTask(title.value, priority, date.value)
-
-
-                addTask(currentProject, task)
+            const updateTask = function() {
+                toDoContent.innerHTML = ''
+                for (const i in currentProject.tasks ) {
+                    addTask(currentProject, currentProject.tasks[i])
+                }
             }
 
             const addTask = function(currentProject, task) {
+        
+
                 const toDo = document.createElement('div')
                 const check = document.createElement('div')
                 const name = document.createElement('p')
@@ -161,8 +166,8 @@ export default function createToDoList() {
                 edit.classList.add('edit-button')
                 icon.src = './pics/square-edit-outline.svg'
                 edit.appendChild(icon)
-                editTask.openEditDialog(edit, task)
-                editTask.submitEditButton(task)
+                openEditDialog(edit, task)
+                
                 remove.classList.add('delete-button')
                 remove.addEventListener('click', () => {
                     toDo.remove()
@@ -184,7 +189,7 @@ export default function createToDoList() {
         }
 
         const project = (function() {
-            const makeTask = task()
+            const makeTask = taskFunctions()
             const projectForm = document.getElementById('create-project')
             const dialog = document.getElementById('project-dialog')
             const projectNameInput = document.getElementById('project-name')
