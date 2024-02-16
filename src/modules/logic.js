@@ -90,7 +90,7 @@ export default function createToDoList () {
         editTitle.value = task.title
         console.log(editTitle.value)
         editPriority.forEach((button) => {
-          if (button.value == task.priority) button.setAttribute('checked', 'checked')
+          if (button.value === task.priority) button.setAttribute('checked', 'checked')
         })
         editDate.value = task.date
         currentTask = currentProject.findTask(task.title) // sets clicked task as the active task in the program for easy access
@@ -134,7 +134,7 @@ export default function createToDoList () {
 
         toDo.classList.add('to-do')
         check.classList.add('checkmark')
-        if (task.completion == true) check.classList.add('checked') // prechecks the checkbox when repopulating if it was checked before
+        if (task.completion === true) check.classList.add('checked') // prechecks the checkbox when repopulating if it was checked before
         check.addEventListener('click', () => {
           check.classList.toggle('checked')
           if (task.completion === true) return task.setCompletion = false
@@ -147,7 +147,7 @@ export default function createToDoList () {
         taskPriority.textContent = 'Priority'
         if (task.priority === 'low') taskPriority.classList.add('low-priority')
         if (task.priority === 'medium') taskPriority.classList.add('medium-priority')
-        if (task.priority ==='high') taskPriority.classList.add('high-priority')
+        if (task.priority === 'high') taskPriority.classList.add('high-priority')
 
         dueDate.classList.add('date')
         dueDate.textContent = task.date
@@ -296,9 +296,9 @@ export default function createToDoList () {
       // go through each project, check that each task array within in each project contains tasks, then add every task that has a priority of "high" to the "Priority" project tasks
       const getPriorityTasks = function (projects, project) {
         for (const i in projects) {
-          if (projects[i].tasks != '') {
+          if (projects[i].tasks !== '') {
             for (const j in projects[i].tasks) {
-              if (projects[i].tasks[j].priority == 'high') project.addTaskToProject(projects[i].tasks[j])
+              if (projects[i].tasks[j].priority === 'high') project.addTaskToProject(projects[i].tasks[j])
             }
           }
         }
@@ -308,7 +308,7 @@ export default function createToDoList () {
         for (const i in projects) {
           if (projects[i].tasks !== '') {
             for (const j in projects[i].tasks) {
-              if (projects[i].tasks[j].completion == true) project.addTaskToProject(projects[i].tasks[j])
+              if (projects[i].tasks[j].completion === true) project.addTaskToProject(projects[i].tasks[j])
             }
           }
         }

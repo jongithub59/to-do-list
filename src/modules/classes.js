@@ -31,7 +31,7 @@ class Project {
   }
 
   findTask (title) {
-    return this.tasks.find((task) => task.getTitle == title)
+    return this.tasks.find((task) => task.getTitle === title)
   }
 
   deleteTask (taskTitle) { // removes inputted task from the tasks array by replacing the array with one that excludes the task title given

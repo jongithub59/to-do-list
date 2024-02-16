@@ -18,7 +18,7 @@ export default class ToDoList {
   }
 
   findProject (name) { // return a project in the project array using an inputted project name
-    return this.projects.find((project) => project.getName == name)
+    return this.projects.find((project) => project.getName === name)
   }
 
   deleteProject (name) { // removes the inputted project by using splice to remove thh 1 element at the given project's index

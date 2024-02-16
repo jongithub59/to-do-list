@@ -6,6 +6,7 @@
   "scripts": {
     "test": "standard && node my-tests.js",
     "watch": "webpack --watch",
+    "lint": "eslint ./src --ext .js --fix",
     "build": "webpack",
     "githubPageAdd": "git add dist && git commit -m \"Initial dist subtree commit\"",
     "githubPagePush": "git subtree push --prefix dist origin gh-pages"
@@ -14,6 +15,14 @@
   "author": "jongithub59",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "prettier": "^3.2.5"
   }
 }
