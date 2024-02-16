@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "standard && node my-tests.js",
     "watch": "webpack --watch",
     "build": "webpack",
     "githubPageAdd": "git add dist && git commit -m \"Initial dist subtree commit\"",
